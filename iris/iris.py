@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from sklearn.datasets import load_iris
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -7,14 +9,14 @@ import seaborn as sns
 # irisデータの読み込み
 iris = load_iris()
 
-# irisデータの全体をコンソール出力
+## irisデータの全体をコンソール出力
 #print(iris)
-
-# irisデータのKeyを出力
+#
+## irisデータのKeyを出力
 #print('\n\n-- iris.keys() --')
 #print(iris.keys())
-
-# irisデータをKeyごとにコンソール出力
+#
+## irisデータをKeyごとにコンソール出力
 #print('\n\n-- iris.data --')
 #print(iris.data)
 #print('\n\n-- iris.target --')
@@ -28,27 +30,27 @@ iris = load_iris()
 #print('\n\n-- iris.filename --')
 #print(iris.filename)
 #print(iris)
-
-# irisデータをKeyごとにファイル出力
-with open('iris.txt', mode='w') as f:
-	print('iris dataset', file=f)
-	print('\n-- iris.data --', file=f)
-	print(iris.data, file=f)
-	print('\n-- iris.target --', file=f)
-	print(iris.target, file=f)
-	print('\n-- iris.target_names --', file=f)
-	print(iris.target_names, file=f)
-	print('\n-- iris.DESCR --', file=f)
-	print(iris.DESCR, file=f)
-	print('\n-- iris.feature_names --', file=f)
-	print(iris.feature_names, file=f)
-	print('\n-- iris.filename --', file=f)
-	print(iris.filename, file=f)
-
-# pandas dataframeの表示設定
+#
+## irisデータをKeyごとにファイル出力
+#with open('iris.txt', mode='w') as f:
+#	print('iris dataset', file=f)
+#	print('\n-- iris.data --', file=f)
+#	print(iris.data, file=f)
+#	print('\n-- iris.target --', file=f)
+#	print(iris.target, file=f)
+#	print('\n-- iris.target_names --', file=f)
+#	print(iris.target_names, file=f)
+#	print('\n-- iris.DESCR --', file=f)
+#	print(iris.DESCR, file=f)
+#	print('\n-- iris.feature_names --', file=f)
+#	print(iris.feature_names, file=f)
+#	print('\n-- iris.filename --', file=f)
+#	print(iris.filename, file=f)
+#
+## pandas dataframeの表示設定
 #pd.set_option('display.max_columns', 100)
 
-# irisデータをpandasのdataframe形式で取得
+# irisデータをpandasのdataframe形式で取得 (列名はiris.feature_namesを利用)
 df = pd.DataFrame(iris.data, columns=iris.feature_names)
 print(df.dtypes)
 print(df.head())
@@ -58,29 +60,46 @@ df['species'] = iris.target_names[iris.target]
 print(df.dtypes)
 print(df.head())
 
-# dataframeをCSV出力
-df.to_csv("iris.csv")
+## dataframeをCSV出力
+#df.to_csv("iris.csv")
+#
+## 統計量を出力
+#df.describe().to_csv('iris_describe.csv')
+#
+## dataframeからデータを切り出す(品種ごと)
+#df_A = df[df['species'] == 'setosa']
+#df_B = df[df['species'] == 'versicolor']
+#df_C = df[df['species'] == 'virginica']
+#
+## 散布図行列の画像出力
+#sns.pairplot(df  , hue='species', diag_kind='kde').savefig('iris_pairplot.png')
+#sns.pairplot(df_A, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-A.png')
+#sns.pairplot(df_B, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-B.png')
+#sns.pairplot(df_C, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-C.png')
+#
+## ピアソンの相関係数の行列を作成
+#df_A.corr(method='pearson').to_csv('iris_corr_A.csv')
+#df_B.corr(method='pearson').to_csv('iris_corr_B.csv')
+#df_C.corr(method='pearson').to_csv('iris_corr_C.csv')
 
-# 統計量を出力
-df.describe().to_csv('iris_describe.csv')
+lin = linear_model.LinearRegression()
+X = df[['sepal length (cm)']]
+Y = df['sepal width (cm)'].values
+#print(X)
+#print(Y)
+lin.fit(X, Y)
+print(lin.coef_,lin.intercept_,  lin.score(X, Y))
 
-# dataframeからデータを切り出す(品種ごと)
-df_A = df[df['species'] == 'setosa']
-df_B = df[df['species'] == 'versicolor']
-df_C = df[df['species'] == 'virginica']
-
-# 散布図行列の画像出力
-sns.pairplot(df  , hue='species', diag_kind='kde').savefig('iris_pairplot.png')
-sns.pairplot(df_A, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-A.png')
-sns.pairplot(df_B, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-B.png')
-sns.pairplot(df_C, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-C.png')
-
-# ピアソンの相関係数の行列を作成
-df_A.corr(method='pearson').to_csv('iris_corr_A.csv')
-df_B.corr(method='pearson').to_csv('iris_corr_B.csv')
-df_C.corr(method='pearson').to_csv('iris_corr_C.csv')
-
-
+xr = [0,10]
+plt.title("Graph Title")
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.plot(xr, lin.coef_ * xr + lin.intercept_)
+plt.scatter(X,Y)
+plt.show()
 
 #---------------------------------------------------------------------
 # End
+
+
+#train_x,test_x,train_y,test_y = train_test_split(data_x,data_y)
