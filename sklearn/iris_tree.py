@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from sklearn.datasets import load_iris
 from sklearn import tree
-import matplotlib.pyplot as plt
 import pandas as pd
 import pydotplus
 import os
