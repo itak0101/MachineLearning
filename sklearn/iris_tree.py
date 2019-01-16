@@ -46,14 +46,16 @@ tree.export_graphviz(clf, out_file=dot_data,
                          class_names=iris.target_names,
                          filled=True, rounded=True)
 graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
-graph.write_png('graph.png')
+graph.write_png('iris_tree.png')
+graph.write_pdf('iris_tree.pdf')
+
 
 # 決定木をDOTファイルとして出力(dot_dataから作成するパターン)
 with open('tree2.dot', mode='w') as f:
 	f.write(dot_data.getvalue())
 
 # PNGファイルを開く
-os.system('graph.png')
+os.system('iris_tree.png')
 
 
 #---------------------------------------------------------------------

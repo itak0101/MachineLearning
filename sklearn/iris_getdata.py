@@ -29,7 +29,7 @@ print(iris.filename)
 print(iris)
 
 # irisデータをKeyごとにファイル出力 (JSON)
-with open('iris.txt', mode='w') as f:
+with open('iris_getdata.txt', mode='w') as f:
 	print('iris dataset', file=f)
 	print('\n-- iris.data --', file=f)
 	print(iris.data, file=f)
@@ -61,7 +61,7 @@ print(df.head())
 df.to_csv("iris.csv")
 
 # 統計量を出力
-df.describe().to_csv('iris_describe.csv')
+df.describe().to_csv('iris_getdata_describe.csv')
 
 # dataframeからデータを切り出す(品種ごと)
 df_A = df[df['species'] == 'setosa']
@@ -69,15 +69,15 @@ df_B = df[df['species'] == 'versicolor']
 df_C = df[df['species'] == 'virginica']
 
 # 散布図行列の画像出力
-sns.pairplot(df  , hue='species', diag_kind='kde').savefig('iris_pairplot.png')
-sns.pairplot(df_A, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-A.png')
-sns.pairplot(df_B, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-B.png')
-sns.pairplot(df_C, hue='species', diag_kind='kde', kind='reg').savefig('iris_pairplot-C.png')
+sns.pairplot(df  , hue='species', diag_kind='kde').savefig('iris_getdata_pairplot.png')
+sns.pairplot(df_A, hue='species', diag_kind='kde', kind='reg').savefig('iris_getdata_pairplot-A.png')
+sns.pairplot(df_B, hue='species', diag_kind='kde', kind='reg').savefig('iris_getdata_pairplot-B.png')
+sns.pairplot(df_C, hue='species', diag_kind='kde', kind='reg').savefig('iris_getdata_pairplot-C.png')
 
 # ピアソンの相関係数の行列を作成
-df_A.corr(method='pearson').to_csv('iris_corr_A.csv')
-df_B.corr(method='pearson').to_csv('iris_corr_B.csv')
-df_C.corr(method='pearson').to_csv('iris_corr_C.csv')
+df_A.corr(method='pearson').to_csv('iris_getdata_corr_A.csv')
+df_B.corr(method='pearson').to_csv('iris_getdata_corr_B.csv')
+df_C.corr(method='pearson').to_csv('iris_getdata_corr_C.csv')
 
 #---------------------------------------------------------------------
 # End
