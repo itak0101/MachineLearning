@@ -2,7 +2,6 @@
 from sklearn import tree
 import pandas as pd
 import pydotplus
-import os
 from sklearn.externals.six import StringIO
 
 #### 学習データの処理 ###############################################################
@@ -41,7 +40,7 @@ dfTestFeature = dfTest[['Pclass','Pclass', 'Sex', 'Age', 'SibSp', 'Parch']]
 
 #### 決定木による予測実行 ###########################################################
 
-# 0～9層の決定木を作成し、それを用いて予測を実行する
+# 深さ1～9の決定木を作成し、それを用いて予測を実行する
 for i in range(1,10):
 	
 	# 決定木の深さを設定
