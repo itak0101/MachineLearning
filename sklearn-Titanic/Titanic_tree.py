@@ -18,7 +18,7 @@ dfTrain = dfTrain[['Survived','Pclass', 'Sex', 'Age', 'SibSp', 'Parch']]
 dfTrain = dfTrain.dropna()
 
 # 学習データの前処理3 (説明変数と目的変数を分離する)
-dfTrainFeature = dfTrain[['Pclass','Pclass', 'Sex', 'Age', 'SibSp', 'Parch']]
+dfTrainFeature = dfTrain[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch']]
 dfTrainTarget =  dfTrain['Survived']
 
 
@@ -35,7 +35,7 @@ dfTest['Sex'] = dfTest['Sex'].str.replace('male',   '0') # Sex列のmaleを0に�
 dfTest["Age"] = dfTest["Age"].fillna(dfTrain['Age'].mean())
 
 # 予測用データの前処理3 (説明変数と目的変数を分離する)
-dfTestFeature = dfTest[['Pclass','Pclass', 'Sex', 'Age', 'SibSp', 'Parch']]
+dfTestFeature = dfTest[['Pclass', 'Sex', 'Age', 'SibSp', 'Parch']]
 
 
 #### 決定木による予測実行 ###########################################################
@@ -69,7 +69,7 @@ for i in range(1,10):
 	dfTestTarget = pd.DataFrame(index=[], columns=['PassengerId', 'Survived'])
 	dfTestTarget['PassengerId'] = dfTest['PassengerId']
 	dfTestTarget['Survived'] = pTest
-	dfTestTarget.to_csv('Titanic_predicted_' + str(i).zfill(2) + '.csv', index=False)
+	dfTestTarget.to_csv('Titanic_tree_predicted_' + str(i).zfill(2) + '.csv', index=False)
 
 
 #---------------------------------------------------------------------
