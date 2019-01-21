@@ -52,7 +52,7 @@ df = pd.DataFrame(iris.data, columns=iris.feature_names)
 print(df.dtypes)
 print(df.head())
 
-# dataframeにspecies配列を追加 (追加内容はtarget配列をtarget_namesに射影したもの)
+# dataframeにspecies列を追加 (追加内容はtarget列をtarget_namesに射影したもの)
 df['species'] = iris.target_names[iris.target]
 print(df.dtypes)
 print(df.head())
