@@ -9,7 +9,7 @@ from sklearn.externals.six import StringIO
 # 学習データの読み込み
 dfTrain = pd.read_csv('train.csv')
 
-# 学習データの前処理1 (Sex列の値を置換。female→1, male→0)
+# 学習データの前処理1 (Sex列の値を置換)
 dfTrain['Sex'] = dfTrain['Sex'].str.replace('female', '1') # Sex列のfemaleを1に置換
 dfTrain['Sex'] = dfTrain['Sex'].str.replace('male',   '0') # Sex列のmaleを0に置換
 
@@ -27,7 +27,7 @@ dfTrainTarget =  dfTrain['Survived']
 # 予測用データの読み込み
 dfTest = pd.read_csv('test.csv')
 
-# 予測用データの前処理1 (Sex列の値を置換。female→1, male→0)
+# 予測用データの前処理1 (Sex列の値を置換)
 dfTest['Sex'] = dfTest['Sex'].str.replace('female', '1') # Sex列のfemaleを1に置換
 dfTest['Sex'] = dfTest['Sex'].str.replace('male',   '0') # Sex列のmaleを0に置換
 
@@ -84,7 +84,7 @@ for i in range(1,10):
 # [3] いまさら聞けない機械学習の評価関数 (正解率に関する説明)
 # https://data.gunosy.io/entry/2016/08/05/115345
 #
-# [4] 決定木入門編 「ウォーリーを探せ」から考える不純度の考え方 (ジニ係数に関する説明)
+# [4] 決定木入門編 「ウォーリーを探せ」から考える不純度の考え方 (ジニ指数に関する説明)
 # http://www.randpy.tokyo/entry/decision_tree_theory
 #
 #---------------------------------------------------------------------
@@ -107,9 +107,9 @@ for i in range(1,10):
 #
 # [C] 決定木の画像の見かた
 #     1行目: 分岐条件 (例 petal length (cm) <= 2.45)
-#     2行目: ジニ係数による不純度 (例 geni = 0.01、1-(A群/全体)^2-(B群/全体)^2)
+#     2行目: ジニ指数による不純度 (例 geni = 0.01、geni=1.0-(A群/全体)^2-(B群/全体)^2)
 #     3行目: その葉まで到達したデータ数、ここで分類するデータ数 (例 samples =100)
-#     4行目: 各郡に属するデータ数 (例 value[50,49,5)ならA群に50個、B群に49個、C群に5個)
+#     4行目: 各郡に属するデータ数 (例 value[50,49,5]ならA群に50個、B群に49個、C群に5個)
 #     5行目: その葉に属するデータを何群として判定すべきか (例 class=setosa)
 #
 #---------------------------------------------------------------------
